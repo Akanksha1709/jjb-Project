@@ -1,0 +1,24 @@
+- job:
+    name: AKS-Folder/test_multijob
+    project-type: multijob
+    builders:
+    - multijob:
+        name: PartOne
+        condition: SUCCESSFUL
+        projects:
+          - name: AKS-Folder/testmaven
+            current-parameters: true
+            git-revision: true
+          - name: AKS-Folder/test-maven
+            current-parameters: true
+            property-file: build.props
+    - multijob:
+        name: PartTwo
+        condition: UNSTABLE
+        projects:
+          - name: AKS-Folder/dockerbuildtest-1
+            current-parameters: true
+            predefined-parameters: foo=bar
+          - name: AKS-Folder/job2part2
+            current-parameters: false
+

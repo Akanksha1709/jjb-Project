@@ -1,0 +1,17 @@
+- project:
+    name: AKS-dockerpull-Temp
+    jobs:
+        - 'AKS-dockerpull-{num}':
+             num: 1
+- job-template:
+    disabled_var:
+    command: 'df'
+    type: freestyle
+    folder: AKS-Folder
+    name: 'AKS-dockerpull-{num}'
+    id: 'AKS-dockerpull-{num}'
+    builders:
+        - docker-pull-image:
+            image: akanksha1709/jjbjar:latest
+            docker-registry-url: https://index.docker.io/v1/ 
+            credentials-id: d9088261-9b65-481d-9499-16410c67b384

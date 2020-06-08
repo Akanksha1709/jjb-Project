@@ -1,0 +1,39 @@
+- job:
+    name: 'AKS-buildpublish'
+    project-type: freestyle
+    defaults: global
+    disabled: false
+    concurrent: true
+    builders:
+      - copyartifact:
+          project: AKS-Folder/Jenkins-Job-Builder-Blog
+          filter: "."
+          target: target
+          build-number: last-successful
+          optional: true
+          flatten: true
+          do-not-fingerprint: true
+      - docker-build-publish:
+          repo-name: 'akanksha1709/jjbjar'
+          repo-tag: 'latest'
+          no-cache: true
+          no-force-pull: false
+          skip-build: false
+          skip-decorate: false
+          skip-latest: false
+          skip-tag: false
+          file-path: '/var/lib/jenkins/workspace/AKS-Folder/AKS-buildpublish/Dockerfile'
+          create-fingerprint: true
+          registry:
+              url: 'https://index.docker.io/'
+              credentials-id: 'fc6b417c-9f9e-4b76-a52a-cc0f0ac3a054'
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    folder: AKS-Folder
+    logrotate:
+      daysToKeep: 3
+      numToKeep: 20
+      artifactDaysToKeep: -1
+      artifactNumToKeep: -1

@@ -1,0 +1,47 @@
+- project:
+    name: docker-buildtest
+    jobs:
+        - 'dockerbuildtest-{num}':
+             num: 1
+- job-template:
+    disabled_var: z
+    command: 'df'
+    type: freestyle
+    folder: AKS-Folder
+    name: 'dockerbuildtest-{num}'
+    id: 'dockerbuildtest-{num}'
+    scm:
+      - dockerbuild_Template
+    builders:
+        - maven-target:
+            maven-version: Maven
+            pom: pom.xml
+            goals: clean compile package install test
+        - docker-build-publish:
+            repo-name: 'akanksha1709/jjbjar'
+            repo-tag: 'latest'
+            no-cache: true
+            no-force-pull: false
+            skip-build: false
+            skip-decorate: false
+            skip-latest: false
+            skip-tag: false
+            file-path: '/var/lib/jenkins/workspace/AKS-Folder/dockerbuildtest-1/Dockerfile'
+            create-fingerprint: true
+            registry:
+                url: 'https://index.docker.io/v1/'
+                credentials-id: 'd9088261-9b65-481d-9499-16410c67b384'
+    publishers:
+        - archive:
+            artifacts: 'target/*.jar'
+            allow-empty: 'true'
+            fingerprint: true
+            default-excludes: false
+- scm:
+    name: dockerbuild_Template
+    scm:
+      - git:
+         url: https://github.com/Akanksha1709/HelloWorldApp.git
+         branches:
+          - master
+

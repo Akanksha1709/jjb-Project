@@ -1,0 +1,25 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: devloper-page
+  labels:
+    app: devloper
+spec:
+  containers:
+    - name: devloper-page
+        
+      image: hashicorp/http-echo
+      args:
+        - "-text=Hello Devloper"
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: devloper-service
+spec:
+  selector:
+    app: devloper
+  ports:
+    - port: 5678

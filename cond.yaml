@@ -1,0 +1,34 @@
+- job:
+    name: AKS-Folder/conditional
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    builders:
+      - conditional-step:
+          condition-kind: not
+          condition-operand:
+              condition-kind: file-exists
+              condition-filename: mytestfile
+              condition-basedir: workspace
+          steps:
+              - shell: "echo \"condition 1 =========> `touch $WORKSPACE/mytestfile`\""
+     - conditional-step:
+         condition-kind: current-status
+         condition-worst: SUCCESS
+         condition-best: SUCCESS
+         steps:
+             - shell: "echo \"condition 2 ============> `ls -l`\""
+- scm:
+   name: scm
+   scm:
+     - git:
+        url: https://github.com/Akanksha1709/HelloWorldApp.git
+        branches:
+          - master
+     

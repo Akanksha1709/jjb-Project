@@ -1,0 +1,14 @@
+- job:
+    name: AKS-Folder/matrix-test-1
+    project-type: matrix
+    axes:
+      - axis:
+         type: python
+         values:
+          - python-2.6
+          - python-3.4
+      - axis:
+         type: tox
+         values:
+          - py26
+          - py34

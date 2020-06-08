@@ -1,0 +1,9 @@
+- job:
+    name: AKS-Folder/http
+    project-type: freestyle
+    builders:
+      - http-request:
+          url: http://10.0.212.146:8080
+          mode: GET
+          authentication-key: b62b77b9-90a4-4af9-8319-07d942b271e3
+          console-log: true

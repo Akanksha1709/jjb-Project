@@ -1,0 +1,14 @@
+- job:
+    name: AKS-Folder/test-jobpipeline
+    project-type: pipeline
+    sandbox: true
+    pipeline-scm:
+      scm:
+        - git:
+            url: https://github.com/Akanksha1709/HelloWorldApp.git
+            branches:
+               - master
+            clean: true
+      script-path: Jenkinsfile
+      lightweight-checkout: true
+

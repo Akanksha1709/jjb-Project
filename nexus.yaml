@@ -1,0 +1,39 @@
+- job:
+    scm:
+      - Final-JJB-SimpleJob
+    name: AKS-Folder/Nexus_uploader
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    builders:
+        - maven-target:
+              maven-version: My Maven
+              pom: pom.xml
+              goals: clean install package
+        - nexus-artifact-uploader:
+              nexus-version: NEXUS3
+              protocol: 'http'
+              nexus_url: '10.0.212.146:8081/'
+              group_id: 'demo.id'
+              version: '3.12.0-01'
+              artifact_id: 'MavenHelloWorld'
+              type: 'jar'
+              classifier: ''
+              repository: 'mavenrepo-akanksha/'
+              file: '/var/lib/jenkins/workspace/AKS-Folder/Nexus-uploder/target/HelloWorld-0.0.1-SNAPSHOT.jar'
+              credentials_id: 5b22b6d4-06bc-4feb-89b2-ed53bbc74688
+- scm:
+    name: Final-JJB-SimpleJob
+    scm:
+      - git:
+         url: https://github.com/Akanksha1709/HelloWorldApp.git
+         branches:
+          - master
+
+

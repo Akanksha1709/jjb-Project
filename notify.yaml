@@ -1,0 +1,10 @@
+- job:
+    name: AKS-folder/testnotfy
+    project-type: freestyle
+    notifications:
+      - http:
+          url: http:10.0.212.146:8080
+          format: xml
+          event: completed
+          timeout: 40000
+          log: -1

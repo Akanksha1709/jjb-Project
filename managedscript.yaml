@@ -1,0 +1,18 @@
+- job:
+    name: AKS-Folder/test-managed-script
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    builders:
+        - managed-script:
+            script-id: a3e16c58-5017-4a69-b3f1-bc6b5088dedb
+            type: script
+            args:
+              - arg1
+            

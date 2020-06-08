@@ -1,0 +1,42 @@
+- job:
+    scm:
+      - 1-JJB-MavenProject
+    name: MavenProject
+    project-type: maven
+    maven: 
+      root-pom: pom.xml
+      goals: clean install
+      root-module:
+         group-id: maven.id
+         artifact-id: HelloWorldApp
+      incremental-build: true
+      automatic-archiving: false
+      automatic-site-archiving: false
+      parallel-build-modules: true
+      resolve-dependencies: true
+      process-plugins: true
+      run-headless: true
+      disable-downstream: true          
+    folder: AKS-Folder
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    display-name: 'AKS-MavenProject'
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    logrotate:
+      daysToKeep: 3
+      numToKeep: 20
+      artifactDaysToKeep: -1
+      artifactNumToKeep: -1
+- scm:
+    name: 1-JJB-MavenProject
+    scm:
+      - git:
+         url: https://github.com/Akanksha1709/HelloWorldApp.git
+
+         branches:
+          - master

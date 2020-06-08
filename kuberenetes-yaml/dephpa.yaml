@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd
+  namespace: asaxena
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webservers
+  template:
+    metadata:
+      labels:
+        app: webservers
+    spec:
+      containers:
+      - name: httpd-container1
+        image: httpd
+        resources:
+          limits:
+            cpu: "1"
+          requests:
+            cpu: "0.5"
+        ports:
+        - containerPort: 80

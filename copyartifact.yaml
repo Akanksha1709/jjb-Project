@@ -1,0 +1,26 @@
+- job:
+    name: 'AKS-copyartifactBuilder'
+    project-type: freestyle
+    defaults: global
+    disabled: false
+    concurrent: true
+    builders:
+      - copyartifact:
+          project: AKS-Folder/Jenkins-Job-Builder-Blog
+          filter: "target/*.jar"
+          target: AKS-Folder
+#any name canbe given to target folder, gona build folderafter project build
+          build-number: last-successful
+          optional: true
+          flatten: true
+          do-not-fingerprint: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    folder: AKS-Folder
+    logrotate:
+      daysToKeep: 3
+      numToKeep: 20
+      artifactDaysToKeep: -1
+      artifactNumToKeep: -1
